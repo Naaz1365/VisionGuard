@@ -1,30 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VisionGuard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <div class="container">
-        <h1>VisionGuard</h1>
-        <h2>Manufacturing Defect Detection</h2>
 
-        <p>
-            AI-powered computer vision system for detecting
-            manufacturing defects from product images.
-        </p>
+<div class="container">
 
-        <div class="box">
-            <h3>Upload Product Image</h3>
-            <input type="file" accept="image/*">
+    <h1>VisionGuard</h1>
+
+    <h2>Manufacturing Defect Detection</h2>
+
+    <p>
+        AI-powered computer vision system for detecting
+        manufacturing defects from product images.
+    </p>
+
+    <div class="box">
+
+        <h3>Upload Product Image</h3>
+
+        <form action="{{ url_for('predict') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="image"
+                   accept="image/*"
+                   required>
+
             <br><br>
-            <button>Analyze Image</button>
 
-            <p>Model integration is under development.</p>
+            <button type="submit">
+                Analyze Image
+            </button>
+
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h3>Result</h3>
+            <p>{{ result }}</p>
         </div>
+        {% endif %}
 
-        <footer>VisionGuard | AI-Based Manufacturing Inspection</footer>
     </div>
+
+    <footer>
+        VisionGuard | AI-Based Manufacturing Inspection
+    </footer>
+
+</div>
+
 </body>
 </html>
